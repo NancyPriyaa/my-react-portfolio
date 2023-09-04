@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tilt from "react-tilt";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
-import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
+
+import { useState } from "react";
+
+import axios from "axios";
 
 const ProjectCard = ({
   index,
@@ -16,6 +19,17 @@ const ProjectCard = ({
   image,
   source_code_link,
 }) => {
+  const INDEX_TO_COLOR_MAPPING = {
+    0: 'blue',
+    1: 'green',
+    2: 'pink'
+  }
+  tags = tags.split(' ').map((tag, idx) => {
+    return {
+      name: tag,
+      color: INDEX_TO_COLOR_MAPPING[idx]
+    }
+  })
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
@@ -28,7 +42,7 @@ const ProjectCard = ({
       >
         <div className='relative w-full h-[230px]'>
           <img
-            src={image}
+            src={`http://localhost:3001/image/${image}`}
             alt='project_image'
             className='w-full h-full object-cover rounded-2xl'
           />
@@ -56,7 +70,7 @@ const ProjectCard = ({
           {tags.map((tag) => (
             <p
               key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
+              className={`text-[14px] ${tag.color}-text-gradient`}
             >
               #{tag.name}
             </p>
@@ -68,6 +82,18 @@ const ProjectCard = ({
 };
 
 const Works = () => {
+  const [dbProjects, setDbProjects] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/getData');
+      setDbProjects(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -89,7 +115,7 @@ const Works = () => {
       </div>
 
       <div className='mt-20 flex flex-wrap gap-7'>
-        {projects.map((project, index) => (
+        {dbProjects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>
