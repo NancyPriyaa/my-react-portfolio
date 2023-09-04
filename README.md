@@ -4,6 +4,11 @@ A captivating personal portfolio website using React and Node.js, enriched with 
 
 ![image](https://github.com/NancyPriyaa/my-react-portfolio/assets/86925331/14a310a0-00e4-4fea-b7eb-e6b58ee4486b)
 
+![image](https://github.com/NancyPriyaa/my-react-portfolio/assets/86925331/f3a2782f-0af9-4321-bbc1-193aaf708c4b)
+![image](https://github.com/NancyPriyaa/my-react-portfolio/assets/86925331/994df0bc-c987-4b4e-be15-eb57cd2d235f)
+
+
+
 Databse Using SQLite
 ![image](https://github.com/NancyPriyaa/my-react-portfolio/assets/86925331/c99ebf1f-1d02-4f37-844a-fb5c57185d08)
 
